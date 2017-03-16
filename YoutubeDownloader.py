@@ -17,13 +17,16 @@ def FindDownloadButton (potentialDownloadButtons):
         
     return None
         
-videoListURL = raw_input('Enter full youtube list URL: ')
+videoListURL = input('Enter full youtube list URL: ')
 youtubeToMp3 = "http://www.youtube-mp3.org/"
     
 driver = webdriver.Chrome("chromedriver.exe")
 
 driver.get(videoListURL)
- 
+while (len(driver.find_elements_by_class_name('load-more-button')) != 0):
+	driver.find_element_by_class_name('load-more-button').click()
+	time.sleep(5)
+	
 allVideos = driver.find_elements_by_xpath('//*[@id="pl-load-more-destination"]/tr')
 videoList = []
 
